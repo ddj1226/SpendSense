@@ -1,0 +1,2 @@
+# SpendSense
+Smart Financial Coach
