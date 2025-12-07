@@ -19,11 +19,24 @@ const AuthPage = () => {
     setError('');
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
     
+    
+    const payload = isLogin 
+      ? { 
+          email: formData.email, 
+          password: formData.password 
+        }
+      : { 
+          email: formData.email, 
+          password: formData.password, 
+          first_name: formData.firstName, 
+          last_name: formData.lastName    
+        };
+
     try {
       const response = await fetch(`http://localhost:8000${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload), 
       });
       
       const data = await response.json();
@@ -46,13 +59,14 @@ const AuthPage = () => {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-slate-100 relative">
       
-      
+      {/* Logo Link */}
       <div className="absolute top-6 left-6">
         <Link to="/" className="text-2xl font-bold text-blue-900 flex items-center gap-2 hover:opacity-80 transition">
           <TrendingUp className="w-8 h-8 text-blue-600" />
           Spend Sense
         </Link>
       </div>
+
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md mx-4">
         <h2 className="text-3xl font-bold text-center text-slate-800 mb-6">
           {isLogin ? 'Welcome Back' : 'Create Account'}
